@@ -28,7 +28,6 @@ io.on('connection', function (socket) {
     messages.forEach(function (data) {
       socket.emit('message', data);
     });
-
     sockets.push(socket);
 
     socket.on('disconnect', function () {

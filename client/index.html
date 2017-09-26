@@ -36,6 +36,8 @@
         $scope.send = function send() {
           console.log('Sending message:', $scope.text);
           socket.emit('message', $scope.text);
+          $scope.text = '';
+        };
 
         $scope.setName = function setName() {
           socket.emit('identify', $scope.name);
