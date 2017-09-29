@@ -9,6 +9,7 @@ var path = require('path');
 var async = require('async');
 var socketio = require('socket.io');
 var express = require('express');
+var MongoClient = require('mongodb').MongoClient;
 
 //
 // ## SimpleServer `SimpleServer(obj)`
@@ -77,7 +78,15 @@ function broadcast(event, data) {
   });
 }
 
+var db;
 server.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
   var addr = server.address();
   console.log("Chat server listening at", addr.address + ":" + addr.port);
+  var url = 'mongodb://userK0V:RnT3pWyyPrraNFnb@testdb-morpheuszchat3.7e14.starter-us-west-2.openshiftapps.com:80/?authMechanism=DEFAULT&authSource=db&ssl=true';
+  // var url = 'mongodb://testdb-morpheuszchat3.7e14.starter-us-west-2.openshiftapps.com/';
+  MongoClient.connect(url, function(err, ddb) {
+    if (err != null) console.log(err);
+    else console.log("Connected correctly to server.");
+    db = ddb;
+  });
 });
